@@ -124,7 +124,8 @@ public class FeedEventListener implements OddsFeedListener, SDKGlobalEventsListe
     public void onProducerStatusChange(ProducerStatus producerStatus) {
         logger.warn("Producer[{}] status changed to: '{}', isDelayed: {}, isDown: {}",
                 producerStatus.getProducer().getId(), producerStatus.getProducerStatusReason(), producerStatus.isDelayed(), producerStatus.isDown());
-        heartbeatTracker.onProducerStatusChange(producerStatus.getProducer().getId(), producerStatus.isDown() || producerStatus.isDelayed());
+        boolean isHealthy = !producerStatus.isDown() && !producerStatus.isDelayed();
+        heartbeatTracker.onProducerStatusChange(producerStatus.getProducer().getId(), isHealthy);
     }
 
     @Override

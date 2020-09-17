@@ -56,8 +56,8 @@ public class HeartbeatTracker {
         client.set(RedisKeysBuilder.getHeartbeatKey(pid), currentTimestamp + "");
     }
 
-    public void onProducerStatusChange(int producerId, boolean isHavingIssues) {
-        logger.info("Setting producer[{}] status to '{}'", producerId, !isHavingIssues);
-        producerStatuses.computeIfAbsent(producerId, (x) -> new AtomicBoolean(false)).set(!isHavingIssues);
+    public void onProducerStatusChange(int producerId, boolean isHealthy) {
+        logger.info("Setting producer[{}] status to '{}'", producerId, isHealthy);
+        producerStatuses.computeIfAbsent(producerId, (x) -> new AtomicBoolean(false)).set(isHealthy);
     }
 }
