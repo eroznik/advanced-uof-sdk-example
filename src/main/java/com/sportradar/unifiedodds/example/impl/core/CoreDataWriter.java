@@ -15,7 +15,6 @@ import com.sportradar.unifiedodds.sdk.oddsentities.OutcomeOdds;
 import com.sportradar.utils.URN;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.Pipeline;
 
 import java.util.Collections;
 import java.util.HashMap;

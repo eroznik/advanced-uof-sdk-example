@@ -10,7 +10,6 @@ import com.sportradar.unifiedodds.example.impl.entities.MarketData;
 import com.sportradar.unifiedodds.example.impl.entities.OutcomeMetadata;
 import com.sportradar.unifiedodds.example.impl.utils.BatchTaskProcessor;
 import com.sportradar.unifiedodds.sdk.entities.SportEvent;
-import com.sportradar.unifiedodds.sdk.oddsentities.Market;
 import com.sportradar.unifiedodds.sdk.oddsentities.MarketWithOdds;
 import com.sportradar.unifiedodds.sdk.oddsentities.OutcomeOdds;
 import com.sportradar.utils.URN;
@@ -18,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.Pipeline;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -39,8 +37,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MetadataWriter {
     private static final Logger logger = LoggerFactory.getLogger(MetadataWriter.class);
 
-    private static final int BATCH_SIZE = 100;
-    private static final int MAX_CONCURRENCY = 10;
+    private static final int BATCH_SIZE = 250;
+    private static final int MAX_CONCURRENCY = 250;
 
     private final JedisPool jedisPool;
     private final ScheduledExecutorService metadataExecutor;
@@ -123,6 +121,8 @@ public class MetadataWriter {
                 break;
             }
         }
+
+        logger.info("Meta queue size: {}", loadQueue.size());
 
         if (processedCount.get() == 0) {
             scheduleAfterEmptyQueue();

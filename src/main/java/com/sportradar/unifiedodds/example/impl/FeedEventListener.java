@@ -1,7 +1,3 @@
-/*
- * Copyright (C) Sportradar AG. See LICENSE for full license governing this code
- */
-
 package com.sportradar.unifiedodds.example.impl;
 
 import com.google.common.base.Preconditions;
@@ -12,13 +8,26 @@ import com.sportradar.unifiedodds.sdk.OddsFeedSession;
 import com.sportradar.unifiedodds.sdk.SDKGlobalEventsListener;
 import com.sportradar.unifiedodds.sdk.entities.Competition;
 import com.sportradar.unifiedodds.sdk.entities.SportEvent;
-import com.sportradar.unifiedodds.sdk.oddsentities.*;
+import com.sportradar.unifiedodds.sdk.oddsentities.BetCancel;
+import com.sportradar.unifiedodds.sdk.oddsentities.BetSettlement;
+import com.sportradar.unifiedodds.sdk.oddsentities.BetStop;
+import com.sportradar.unifiedodds.sdk.oddsentities.FixtureChange;
+import com.sportradar.unifiedodds.sdk.oddsentities.OddsChange;
+import com.sportradar.unifiedodds.sdk.oddsentities.Producer;
+import com.sportradar.unifiedodds.sdk.oddsentities.ProducerDown;
+import com.sportradar.unifiedodds.sdk.oddsentities.ProducerStatus;
+import com.sportradar.unifiedodds.sdk.oddsentities.ProducerUp;
+import com.sportradar.unifiedodds.sdk.oddsentities.RollbackBetCancel;
+import com.sportradar.unifiedodds.sdk.oddsentities.RollbackBetSettlement;
+import com.sportradar.unifiedodds.sdk.oddsentities.UnparsableMessage;
 import com.sportradar.utils.URN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A feed listener implementation which uses separate thread for message parsing
+ * Created on 17. 09. 20
+ *
+ * @author e.roznik
  */
 public class FeedEventListener implements OddsFeedListener, SDKGlobalEventsListener {
     private static final Logger logger = LoggerFactory.getLogger(FeedEventListener.class);

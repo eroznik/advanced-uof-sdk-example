@@ -1,7 +1,3 @@
-/*
- * Copyright (C) Sportradar AG. See LICENSE for full license governing this code
- */
-
 package com.sportradar.unifiedodds.example.impl;
 
 import com.sportradar.unifiedodds.sdk.MessageInterest;
@@ -15,7 +11,9 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A advanced example demonstrating on how to start the SDK with a single session while parsing messages in new thread
+ * Created on 17. 09. 20
+ *
+ * @author e.roznik
  */
 public class MultithreadedSessionSetup {
     private final OddsFeed oddsFeed;
