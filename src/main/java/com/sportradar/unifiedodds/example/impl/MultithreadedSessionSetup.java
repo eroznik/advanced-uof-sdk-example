@@ -10,6 +10,7 @@ import com.sportradar.unifiedodds.sdk.ProducerManager;
 import com.sportradar.unifiedodds.sdk.cfg.OddsFeedConfiguration;
 import com.sportradar.unifiedodds.sdk.exceptions.InitException;
 
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +27,7 @@ public class MultithreadedSessionSetup {
                 .selectProduction()
                 .setSdkNodeId(-371)
                 .setDefaultLocale(Locale.ENGLISH)
+                .setDesiredLocales(Arrays.asList(Locale.ENGLISH, Locale.ITALIAN))
                 .build();
 
         this.feedEventListener = feedEventListener;
