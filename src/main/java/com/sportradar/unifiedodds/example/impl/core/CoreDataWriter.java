@@ -64,9 +64,7 @@ public class CoreDataWriter {
         }
 
         try (Jedis client = jedisPool.getResource()) {
-            Pipeline pipelined = client.pipelined();
-            pipelined.hset(RedisKeysBuilder.getEventKey(eventId), properties);
-            pipelined.sync();
+            client.hset(RedisKeysBuilder.getEventKey(eventId), properties);
         }
     }
 
@@ -83,7 +81,6 @@ public class CoreDataWriter {
         }
 
         try (Jedis client  = jedisPool.getResource()) {
-            Pipeline pipelined = client.pipelined();
 
             long now = System.currentTimeMillis();
             for (MarketCoreData market : mappedCoreData) {
@@ -96,12 +93,8 @@ public class CoreDataWriter {
                     properties.put("os_" + outcome.getId(), JsonSerialization.serialize(outcome));
                 }
 
-                pipelined.hset(RedisKeysBuilder.getMarketKey(market), properties);
-
-                pipelined.sync();
+                client.hset(RedisKeysBuilder.getMarketKey(market), properties);
             }
-
-            pipelined.sync();
         }
     }
 

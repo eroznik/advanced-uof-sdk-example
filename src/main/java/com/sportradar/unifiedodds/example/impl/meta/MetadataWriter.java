@@ -168,11 +168,7 @@ public class MetadataWriter {
         properties.put("meTs", System.currentTimeMillis() + "");
 
         try (Jedis client = jedisPool.getResource()) {
-            Pipeline pipelined = client.pipelined();
-
-            pipelined.hmset(RedisKeysBuilder.getMarketKey(fullMarketId), properties);
-
-            pipelined.sync();
+            client.hmset(RedisKeysBuilder.getMarketKey(fullMarketId), properties);
         }
     }
 
@@ -218,9 +214,7 @@ public class MetadataWriter {
         properties.put("meTs", System.currentTimeMillis() + "");
 
         try (Jedis client = jedisPool.getResource()) {
-            Pipeline pipelined = client.pipelined();
-            pipelined.hmset(RedisKeysBuilder.getEventKey(event.getId()), properties);
-            pipelined.sync();
+            client.hmset(RedisKeysBuilder.getEventKey(event.getId()), properties);
         }
     }
 
