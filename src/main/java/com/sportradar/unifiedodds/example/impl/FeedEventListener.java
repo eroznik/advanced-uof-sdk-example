@@ -44,7 +44,9 @@ public class FeedEventListener implements OddsFeedListener, SDKGlobalEventsListe
         logger.info("Received odds change for Event[{}], producer[{}]", eventId, producerId);
         coreDataWriter.process(producerId, eventId, oddsChanges.getMarkets());
         if (oddsChanges.getEvent() instanceof Competition) {
-            coreDataWriter.process(eventId, ((Competition) oddsChanges.getEvent()).getStatus());
+            ((Competition) oddsChanges.getEvent())
+                    .getStatusIfPresent()
+                    .ifPresent(v -> coreDataWriter.process(eventId, v));
         }
         metadataWriter.process(oddsChanges.getEvent(), false);
         metadataWriter.process(producerId, eventId, oddsChanges.getMarkets());
@@ -107,7 +109,6 @@ public class FeedEventListener implements OddsFeedListener, SDKGlobalEventsListe
     @Override
     public void onConnectionDown() {
         logger.warn("onConnectionDown triggered!");
-        heartbeatTracker.onConnectionDown();
     }
 
     @Override

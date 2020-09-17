@@ -54,7 +54,7 @@ public class MultithreadedSessionSetup {
     private void setProducersRecoveryTimestamp() {
         // using the timestamp from 1 hour back, in real case scenarios you need to monitor the timestamp for recovery
         // with the producerManager.getProducer(producerId).getTimestampForRecovery(); method
-        long recoveryFromTimestamp = System.currentTimeMillis() - TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS);
+        long recoveryFromTimestamp = System.currentTimeMillis() - TimeUnit.MILLISECONDS.convert(10, TimeUnit.SECONDS);
 
         ProducerManager producerManager = oddsFeed.getProducerManager();
 
